@@ -1,8 +1,8 @@
 public class GumballMachine
 {
 
-    private int num_gumballs;
-    private boolean has_quarter;
+    private static int num_gumballs;
+    private static boolean has_quarter;
 
     public GumballMachine( int size )
     {
@@ -11,22 +11,34 @@ public class GumballMachine
         this.has_quarter = false;
     }
 
-    public void insertQuarter(int coin)
+    public static void insertQuarter(int coin)
     {
         if ( coin == 25 )
-            this.has_quarter = true ;
+            has_quarter = true ;
         else
-            this.has_quarter = false ;
+            has_quarter = false ;
     }
 
-    public void turnCrank()
+    public static void ejectQuarter()
     {
-        if ( this.has_quarter )
+        if(has_quarter)
         {
-            if ( this.num_gumballs > 0 )
+            has_quarter = false;
+            System.out.println("Your Quarter has been ejected");
+        }
+        else
+            System.out.println("No Quarter to eject!!");
+
+    }
+
+    public static void turnCrank()
+    {
+        if ( has_quarter )
+        {
+            if ( num_gumballs > 0 )
             {
-                this.num_gumballs-- ;
-                this.has_quarter = false ;
+                num_gumballs-- ;
+                has_quarter = false ;
                 System.out.println( "Thanks for your quarter.  Gumball Ejected!" ) ;
             }
             else
@@ -38,5 +50,20 @@ public class GumballMachine
         {
             System.out.println( "Please insert a quarter" ) ;
         }
+    }
+
+    public static void main(String[] args)
+    {
+        System.out.println("Simple Gumball Machine Version 1");
+        GumballMachine obj = new GumballMachine(10);
+        insertQuarter(25);
+        turnCrank();
+        insertQuarter(25);
+        turnCrank();
+        insertQuarter(10);
+        turnCrank();
+        insertQuarter(25);
+        ejectQuarter();
+
     }
 }
